@@ -1,0 +1,613 @@
+/* ============================================================================
+   设计令牌 —— 薄荷绿主题色板
+   ============================================================================ */
+:root {
+    /* 主色阶（深化一级：强调绿 + 低饱和灰雾绿） */
+    --mint: #78C6A3;              /* 主薄荷绿 */
+    --mint-strong: #3E9B77;       /* 深一档强调绿：分类标题 / hover 态 */
+    --mint-light: #E6F7F2;        /* 浅薄荷绿：图标底 / 分隔线 */
+    --mint-extra-light: #F2FBF8;  /* 极浅薄荷绿：内嵌小卡片底 */
+    --mint-mist: #EAF6F1;         /* 雾灰薄荷：更浅的次级背景 */
+
+    /* 文字色阶 */
+    --text-dark: #2A4D43;         /* 深墨绿：主文字 */
+    --text-medium: #5D8C7F;       /* 中灰绿：一般正文 */
+    --text-soft: #8AA8A0;         /* 低饱和灰雾绿：cover 歌手 / 英文注解 */
+
+    /* 卡片与阴影 */
+    --card-bg: #FFFFFF;
+    --body-bg: #F2FBF8;
+    --shadow-card: 0 4px 20px rgba(120, 198, 163, 0.10);
+    --shadow-soft: 0 4px 20px rgba(120, 198, 163, 0.12);
+    --shadow-raise: 0 10px 28px rgba(120, 198, 163, 0.20);
+    --shadow-inner: inset 0 1px 3px rgba(120, 198, 163, 0.10);
+    --border-faint: 1px solid rgba(120, 198, 163, 0.08);
+
+    /* 统一圆角参数：大卡片 / 内嵌小卡片 */
+    --radius-panel: 12px;
+    --radius-sub: 8px;
+
+    /* 过渡参数 */
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --d-fast: 0.3s;
+    --d-med: 0.4s;
+}
+
+/* ============================================================================
+   全局重置
+   ============================================================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ============================================================================
+   页面基础 —— 极浅薄荷背景 + 淡入入场动画
+   ============================================================================ */
+body {
+    font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif;
+    background-color: var(--body-bg);
+    line-height: 1.6;
+    color: var(--text-dark);
+    min-height: 100vh;
+    animation: fadeIn 0.8s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================================
+   双栏容器 —— 右侧弹性列撑起高度，左侧侧边栏自动拉伸对齐通高
+   ============================================================================ */
+.container {
+    display: flex;
+    align-items: stretch;            /* 关键：使侧边栏与右侧主内容区等高 */
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    gap: 2rem;
+}
+
+/* ============================================================================
+   左侧通高侧边栏 —— 留白装饰款
+   说明：由容器 stretch 拉伸至与右侧总高对齐；底部留白用极淡薄荷径向渐变填充。
+   ============================================================================ */
+.sidebar {
+    position: sticky;
+    top: 2rem;
+    width: 300px;
+    flex-shrink: 0;
+    align-self: stretch;           /* 拉伸至与主内容区等高，消除下半空白 */
+    background-color: var(--card-bg);
+    border-radius: var(--radius-panel);
+    padding: 2rem 1.5rem;
+    box-shadow: var(--shadow-soft);
+    border: var(--border-faint);
+    overflow: hidden;              /* 裁剪渐变与圆角的一致性 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.6;
+}
+
+/* 底部留白渐变填充 —— 极淡径向薄荷光晕，从底部向上淡出，纯白顶部，低透明度克制通透 */
+.sidebar::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background:
+        radial-gradient(120% 150% at 50% 122%, rgba(120, 198, 163, 0.16), transparent 62%);
+}
+
+/* 内容置于渐变之上，保持纯白基底清晰 */
+.sidebar > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* --- 头像区 --- */
+.avatar-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.8rem;
+}
+
+/* 头像 —— 140px 圆形 + 薄荷绿双层光晕，hover 放大增强光晕 */
+.avatar {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--mint);
+    box-shadow: 0 0 0 4px var(--mint-light), 0 8px 24px rgba(120, 198, 163, 0.25);
+    transition: transform var(--d-med) ease, box-shadow var(--d-med) ease;
+}
+
+.avatar:hover {
+    transform: scale(1.04);
+    box-shadow: 0 0 0 6px var(--mint-light), 0 12px 32px rgba(120, 198, 163, 0.35);
+}
+
+/* --- 个人信息栏 --- */
+.personal-info {
+    width: 100%;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;           /* 图标与文字基线对齐 */
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    width: 100%;
+    color: var(--text-medium);
+}
+
+.info-item i {
+    width: 20px;
+    text-align: center;
+    color: var(--mint);
+    flex-shrink: 0;
+    font-size: 0.9rem;
+    transition: color var(--d-fast) ease;
+}
+
+.info-item:hover i {
+    color: var(--text-dark);
+}
+
+.info-item span:nth-child(2) {
+    white-space: nowrap;
+    flex-shrink: 0;
+    color: var(--text-dark);
+    font-weight: 500;
+}
+
+/* 虚线下划线内容 —— 自动换行适应长文本 */
+.input-line {
+    flex: 1;
+    border-bottom: 1px dashed var(--mint-light);
+    padding-bottom: 2px;
+    color: var(--text-medium);
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+    word-break: break-word;
+}
+
+/* --- 个人标签区 --- */
+.tags-section {
+    width: 100%;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--mint-light);
+}
+
+.tags-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 0.8rem;
+    letter-spacing: 0.5px;
+}
+
+.tag-group {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+}
+
+/* 标签按钮 —— 32px 圆角药丸形，hover 变主色背景 + 浮起动效 */
+.tag {
+    background-color: var(--mint-light);
+    color: var(--text-dark);
+    padding: 4px 10px;
+    height: 30px;
+    line-height: 22px;
+    border-radius: 32px;
+    font-size: 12px;
+    transition: all var(--d-fast) ease;
+    cursor: default;
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid transparent;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+}
+
+.tag:hover {
+    background-color: var(--mint);
+    color: #fff;
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 4px 12px rgba(120, 198, 163, 0.3);
+}
+
+/* ============================================================================
+   右侧主内容区
+   ============================================================================ */
+.main-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;                     /* 卡片与卡片之间统一节奏 */
+}
+
+/* --- 顶部标题区 --- */
+.page-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.8rem;
+}
+
+.site-logo {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 3px var(--mint-light), 0 4px 12px rgba(120, 198, 163, 0.15);
+    transition: transform var(--d-fast) ease;
+}
+
+.site-logo:hover {
+    transform: rotate(-8deg) scale(1.05);
+}
+
+.main-title {
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1.3;
+    letter-spacing: 1px;
+}
+
+/* ============================================================================
+   通用白色面板卡片 —— 「性格元素」与「Hobby」共用同一节奏参数
+   ============================================================================ */
+.character-section,
+.hobby-section {
+    background-color: var(--card-bg);
+    border-radius: var(--radius-panel);
+    padding: 1.8rem;
+    box-shadow: var(--shadow-card);
+    border: var(--border-faint);
+}
+
+/* ============================================================================
+   通用面板标题组件（BEM）—— Character Element 与 Hobby 共用同一套标题样式
+   .panel-title / .panel-title__text / .panel-title__line
+   ============================================================================ */
+.panel-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1.4;
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--mint-light);
+}
+
+.panel-title__text {
+    line-height: 1;
+}
+
+/* 左右短横线装饰 —— 薄荷色渐变淡出，呼应简约风格 */
+.panel-title__line {
+    width: 48px;
+    height: 1px;
+    flex-shrink: 0;
+    background: linear-gradient(90deg, transparent, var(--mint));
+}
+
+.panel-title__line:last-child {
+    background: linear-gradient(90deg, var(--mint), transparent);
+}
+
+/* ============================================================================
+   Character Element 板块
+   ============================================================================ */
+.character-card {
+    background-color: var(--mint-extra-light);
+    border-radius: var(--radius-sub);
+    padding: 1rem 1.2rem;
+    margin-bottom: 0.8rem;
+    transition: background-color var(--d-med) ease, transform var(--d-med) ease;
+}
+
+.character-card:last-child {
+    margin-bottom: 0;
+}
+
+.character-card:hover {
+    background-color: var(--mint-light);
+    transform: translateX(4px);
+}
+
+.character-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.3rem;
+}
+
+.character-card-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: var(--mint-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--mint);
+    font-size: 0.95rem;
+    flex-shrink: 0;
+    transition: background-color var(--d-med) ease, color var(--d-med) ease, transform var(--d-med) ease;
+}
+
+.character-card:hover .character-card-icon {
+    background-color: var(--mint);
+    color: #fff;
+    transform: scale(1.1);
+}
+
+.character-card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.character-card-desc {
+    font-size: 0.85rem;
+    color: var(--text-medium);
+    line-height: 1.5;
+    padding-left: calc(32px + 0.6rem);
+}
+
+/* ============================================================================
+   Hobby 板块
+   ============================================================================ */
+
+/* 三列等宽网格 */
+.hobby-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+/* 内嵌三列小卡片 —— 颜色比外层大卡片浅一个色号 + 极淡内阴影 + 圆角小一号，
+   形成 "大卡片套小卡片" 的嵌套层次；hover 轻微上浮 + 阴影加深 */
+.hobby-column {
+    position: relative;
+    background-color: var(--mint-extra-light);
+    border-radius: var(--radius-sub);
+    padding: 1rem 1.2rem;
+    box-shadow: var(--shadow-inner);
+    transition:
+        background-color var(--d-med) var(--ease),
+        transform var(--d-med) var(--ease),
+        box-shadow var(--d-med) var(--ease);
+}
+
+.hobby-column:hover {
+    background-color: var(--mint-light);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-inner), 0 8px 20px rgba(120, 198, 163, 0.16);
+}
+
+/* 分类标题行 —— 图标与文字同行左对齐 */
+.hobby-column-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.4rem;
+}
+
+/* 分类图标 —— 32px 圆形薄荷底，hover 变强调绿 */
+.hobby-cat-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: var(--mint-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--mint-strong);
+    flex-shrink: 0;
+    transition: background-color var(--d-med) ease, color var(--d-med) ease;
+}
+
+.hobby-cat-icon svg {
+    width: 15px;
+    height: 15px;
+}
+
+.hobby-column:hover .hobby-cat-icon {
+    background-color: var(--mint-strong);
+    color: #fff;
+}
+
+/* 中文分类标题 —— 加粗 + 深一档强调绿 */
+.hobby-cat-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--mint-strong);
+    letter-spacing: 0.5px;
+}
+
+/* 英文分类名 —— 细字重 + 低饱和灰雾绿 + 小一号，置于中文右侧 */
+.hobby-cat-en {
+    font-size: 0.78rem;
+    font-weight: 400;
+    color: var(--text-soft);
+    margin-left: 6px;
+    letter-spacing: 1px;
+}
+
+/* 英文描述 —— 优雅轻盈的现代衬线体：细字重 + 轻微斜体 + 灰雾绿 + 略宽字间距
+   三列共用同一类，字体/字号/颜色/行高完全统一 */
+.hobby-cat-desc {
+    font-family: "Cormorant Garamond", "EB Garamond", Georgia, "Times New Roman", "Songti SC", "STSong", serif;
+    font-size: 0.86rem;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--text-soft);
+    line-height: 1.6;
+    letter-spacing: 0.6px;
+    padding-left: calc(32px + 0.6rem);
+    margin-bottom: 0.9rem;
+}
+
+/* 爱好列表 —— 与描述对齐同基线 */
+.hobby-list {
+    list-style: none;
+    padding-left: calc(32px + 0.6rem);
+}
+
+/* 爱好条目 —— 固定行高 + 垂直居中，强制三列每一行高度统一 */
+.hobby-item {
+    min-height: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    padding: 0.2rem 0.4rem;
+    border-radius: 6px;
+    margin: 0 0 0.2rem;
+    transition: background-color var(--d-med) var(--ease);
+}
+
+.hobby-item:last-child {
+    margin-bottom: 0;
+}
+
+/* 条目 hover —— 背景轻微加深，图标左移 2px，柔和过渡 */
+.hobby-item:hover {
+    background-color: rgba(120, 198, 163, 0.10);
+}
+
+.hobby-item:hover i {
+    transform: translateX(-2px);
+}
+
+.hobby-item i {
+    width: 16px;
+    text-align: center;
+    color: var(--mint);
+    font-size: 0.85rem;
+    flex-shrink: 0;
+    transition: transform var(--d-med) var(--ease), color var(--d-med) ease;
+}
+
+.hobby-item i:hover {
+    color: var(--mint-strong);
+}
+
+/* 作品名称 —— 常规字重 + 深墨绿，作为条目核心信息突出显示 */
+.hobby-name {
+    font-weight: 400;
+    color: var(--text-dark);
+    letter-spacing: 0.3px;
+}
+
+/* cover 歌手名 —— 更小字号 + 低饱和灰雾绿 + 适当字间距，避免文字粘连 */
+.hobby-cover {
+    font-size: 0.76rem;
+    font-weight: 400;
+    color: var(--text-soft);
+    margin-left: 10px;
+    letter-spacing: 0.5px;
+}
+
+/* ============================================================================
+   响应式 —— 屏幕宽度 < 900px 切换为上下堆叠布局
+   ============================================================================ */
+@media (max-width: 900px) {
+    body {
+        animation: fadeIn 0.6s ease;
+    }
+
+    .container {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 0 16px;
+        margin: 1rem auto;
+        gap: 1.2rem;
+    }
+
+    .sidebar {
+        width: 100%;
+        position: static;
+        align-self: stretch;
+        padding: 1.6rem 1.5rem 2.6rem;
+    }
+
+    .avatar {
+        width: 120px;
+        height: 120px;
+    }
+
+    .main-content {
+        width: 100%;
+        gap: 1.2rem;
+    }
+
+    .page-header {
+        margin-bottom: 0;
+    }
+
+    .main-title {
+        font-size: 1.35rem;
+    }
+
+    .site-logo {
+        width: 48px;
+        height: 48px;
+    }
+
+    .character-section,
+    .hobby-section {
+        padding: 1.2rem;
+    }
+
+    .character-card {
+        padding: 0.9rem 1rem;
+    }
+
+    .character-card-desc {
+        padding-left: calc(32px + 0.6rem);
+    }
+
+    /* 窄屏下三列改为单列堆叠 */
+    .hobby-grid {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+    }
+
+    .hobby-column {
+        padding: 0.9rem 1rem;
+    }
+
+    .panel-title__line {
+        width: 32px;
+    }
+
+    .tag-group {
+        flex-wrap: wrap;
+    }
+}

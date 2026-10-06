@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>starboat的个人网站</title>
+    <!-- Tailwind CDN + Font Awesome 6 线性图标库 + 自定义样式表 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- 优雅衬线体（仅 400 斜体，用于 Hobby 板块英文描述），jsDelivr 源国内可访问 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/cormorant-garamond@5/400-italic.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 双栏容器：左侧 300px 固定侧边栏 + 右侧弹性主内容区 -->
+    <div class="container">
+        <!-- ====== 左侧边栏 ====== -->
+        <aside class="sidebar">
+            <!-- 头像展示区：140px 圆形头像，薄荷绿光晕 -->
+            <div class="avatar-wrapper">
+                <img src="avatar.png" alt="个人头像" class="avatar">
+            </div>
+            <!-- 个人信息列表：4 项，图标 + 标签 + 虚线下划线内容 -->
+            <div class="personal-info">
+                <div class="info-item">
+                    <i class="fa-regular fa-user"></i>
+                    <span>姓名：</span>
+                    <span class="input-line">周星</span>
+                </div>
+                <div class="info-item">
+                    <i class="fa-regular fa-mars"></i>
+                    <span>性别：</span>
+                    <span class="input-line">男</span>
+                </div>
+                <div class="info-item">
+                    <i class="fa-regular fa-star"></i>
+                    <span>星座：</span>
+                    <span class="input-line">天蝎座</span>
+                </div>
+                <div class="info-item">
+                    <i class="fa-regular fa-quote-right"></i>
+                    <span>个性签名：</span>
+                    <span class="input-line">命运之难，莫过抉择</span>
+                </div>
+            </div>
+            <!-- 个人标签：3 个药丸形标签，hover 变主色背景浮起 -->
+            <section class="tags-section">
+                <h2 class="tags-title">个人标签</h2>
+                <div class="tag-group">
+                    <span class="tag">宅</span>
+                    <span class="tag">伪高冷</span>
+                    <span class="tag">奋进颓废矛盾体</span>
+                </div>
+            </section>
+        </aside>
+
+        <!-- ====== 右侧主内容区 ====== -->
+        <main class="main-content">
+            <!-- 顶部标题区：logo 圆标 + 欢迎语，垂直居中 -->
+            <header class="page-header">
+                <img src="logo.png" alt="网站图标" class="site-logo">
+                <h1 class="main-title">你好，同学!欢迎来到我的小世界</h1>
+            </header>
+
+            <!-- 性格元素板块：3 张卡片，每张由图标 + 标题 + 描述组成 -->
+            <section class="character-section">
+                <!-- 板块标题：与 Hobby 共用 .panel-title 组件，确保标题层级完全一致 -->
+                <h2 class="panel-title">
+                    <span class="panel-title__line" aria-hidden="true"></span>
+                    <span class="panel-title__text">Character Element</span>
+                    <span class="panel-title__line" aria-hidden="true"></span>
+                </h2>
+                <!-- 淡漠：月亮图标象征安静内敛 -->
+                <div class="character-card">
+                    <div class="character-card-header">
+                        <i class="fa-regular fa-moon character-card-icon"></i>
+                        <span class="character-card-title">淡漠真挚</span>
+                    </div>
+                    <p class="character-card-desc">待生活平淡，对朋友真诚</p>
+                </div>
+                <!-- 随性：微笑图标象征随和放松 -->
+                <div class="character-card">
+                    <div class="character-card-header">
+                        <i class="fa-regular fa-face-smile character-card-icon"></i>
+                        <span class="character-card-title">随性随就</span>
+                    </div>
+                    <p class="character-card-desc">无所谓，没要求，随和迁就——45°斜躺青年</p>
+                </div>
+                <!-- 坚韧：宝石图标象征坚硬稳固 -->
+                <div class="character-card">
+                    <div class="character-card-header">
+                        <i class="fa-regular fa-gem character-card-icon"></i>
+                        <span class="character-card-title">坚韧顽强</span>
+                    </div>
+                    <p class="character-card-desc">小小挫折，打不倒我！</p>
+                </div>
+            </section>
+
+            <!-- Hobby 板块：三个兴趣分类，三列等宽网格 -->
+            <section class="hobby-section">
+                <h2 class="panel-title">
+                    <span class="panel-title__line" aria-hidden="true"></span>
+                    <span class="panel-title__text">Hobby</span>
+                    <span class="panel-title__line" aria-hidden="true"></span>
+                </h2>
+                <div class="hobby-grid">
+                    <!-- 第 1 列：音乐 -->
+                    <div class="hobby-column">
+                        <div class="hobby-column-header">
+                            <span class="hobby-cat-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M9 17.5V4l10-2v13"/>
+                                    <circle cx="6.5" cy="17.5" r="2.5"/>
+                                    <circle cx="16.5" cy="15" r="2.5"/>
+                                </svg>
+                            </span>
+                            <h3 class="hobby-cat-title">音乐<span class="hobby-cat-en">Music</span></h3>
+                        </div>
+                        <p class="hobby-cat-desc">-Cure Wounded Heart</p>
+                        <ul class="hobby-list">
+                            <li class="hobby-item">
+                                <i class="fa-regular fa-circle-play"></i>
+                                <span class="hobby-name">前路<span class="hobby-cover">cover 黄霄雲</span></span>
+                            </li>
+                            <li class="hobby-item">
+                                <i class="fa-regular fa-file-lines"></i>
+                                <span class="hobby-name">孤诗与诗<span class="hobby-cover">cover 鞠婧祎</span></span>
+                            </li>
+                            <li class="hobby-item">
+                                <i class="fa-regular fa-star"></i>
+                                <span class="hobby-name">年少有为<span class="hobby-cover">cover 李荣浩</span></span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- 第 2 列：小说 -->
+                    <div class="hobby-column">
+                        <div class="hobby-column-header">
+                            <span class="hobby-cat-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <ellipse cx="12" cy="13.6" rx="7" ry="6.2"/>
+                                    <path d="M12 7.4 9 4.6M12 7.4l3-2.8"/>
+                                </svg>
+                            </span>
+                            <h3 class="hobby-cat-title">小说<span class="hobby-cat-en">Fiction</span></h3>
+                        </div>
+                        <p class="hobby-cat-desc">-Create Imaginative Experience</p>
+                        <ul class="hobby-list">
+                            <li class="hobby-item">
+                                <i class="fa-regular fa-moon"></i>
+                                <span class="hobby-name">诡秘之主</span>
+                            </li>
+                            <li class="hobby-item">
+                                <i class="fa-regular fa-map"></i>
+                                <span class="hobby-name">逆位迷宫</span>
+                            </li>
+                            <li class="hobby-item">
+                                <i class="fa-regular fa-keyboard"></i>
+                                <span class="hobby-name">游戏入侵</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- 第 3 列：动画 -->
+                    <div class="hobby-column">
+                        <div class="hobby-column-header">
+                            <span class="hobby-cat-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <rect x="2.8" y="7" width="18.4" height="12.5" rx="3.2"/>
+                                    <path d="M7.6 7 5 3.4M16.4 7 19 3.4"/>
+                                    <path d="M9.6 11.6v3M14.4 11.6v3"/>
+                                </svg>
+                            </span>
+                            <h3 class="hobby-cat-title">动画<span class="hobby-cat-en">Cartoon</span></h3>
+                        </div>
+                        <p class="hobby-cat-desc">-Convey Pure Joy</p>
+                        <ul class="hobby-list">
+                            <li class="hobby-item">
+                                <i class="fa-regular fa-image"></i>
+                                <span class="hobby-name">凹凸世界</span>
+                            </li>
+                            <li class="hobby-item">
+                                <i class="fa-regular fa-clock"></i>
+                                <span class="hobby-name">时光代理人</span>
+                            </li>
+                            <li class="hobby-item">
+                                <i class="fa-regular fa-eye"></i>
+                                <span class="hobby-name">咒术回战</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- 标签点击交互：点击时缩放反馈，模拟按下效果 -->
+    <script>
+        document.querySelectorAll('.tag').forEach(tag => {
+            tag.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 150);
+            });
+        });
+    </script>
+</body>
+</html>
